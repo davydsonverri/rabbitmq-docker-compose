@@ -57,6 +57,8 @@ Before you get started, make sure Docker is up and running on your machine.
 **User:** guest  
 **Password:** guest123
 
+<br/>
+
 ### 🔁 Changing the Password
 
 Once your RabbitMQ container is running, you can generate a new password hash with the command below:
@@ -107,3 +109,25 @@ This file already includes examples of the following:
 - 📩 Create queues
 - 🔗 Binding queue to exchanges
 - ☠️ Set Deadletter exchange a Deadletter routing key
+
+<br/>
+
+## 🔌 Enabling Plugins
+
+RabbitMQ plugins can be enabled or disabled through the `enabled_plugins` file.
+
+This project comes with the following plugins already activated:
+
+- `rabbitmq_management` – Web UI for managing exchanges, queues, users, etc.
+- `rabbitmq_shovel` – For moving messages between brokers
+- `rabbitmq_shovel_management` – Adds Shovel control to the UI
+
+To customize plugins, open the `rabbitmq/enabled_plugins` file and adjust the list:
+
+```erlang
+[rabbitmq_management, rabbitmq_shovel, rabbitmq_shovel_management].
+```
+
+Make sure to restart the container after making changes to apply them.
+
+👉 For the full list of available plugins, visit the [official RabbitMQ plugin documentation](https://www.rabbitmq.com/docs/plugins).
