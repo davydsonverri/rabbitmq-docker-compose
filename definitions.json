@@ -1,0 +1,79 @@
+{
+    "users": [
+      {
+        "name": "guest",
+        "password_hash": "oRw25r5d1FRUfrpGueD2bJXm57h8LbslWfhf4gz7xndOafRv",
+        "hashing_algorithm": "rabbit_password_hashing_sha256",
+        "tags": "administrator"
+      }
+    ],
+    "vhosts": [
+      { "name": "/" },
+      { "name": "MYVH"}
+    ],    
+    "permissions": [
+      {
+        "user": "guest",
+        "vhost": "/",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+      },
+      {
+        "user": "guest",
+        "vhost": "MYVH",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+      }
+    ],
+    "queues": [
+      {
+        "name": "MYVH.MainQueue",
+        "vhost": "MYVH",
+        "durable": true,
+        "arguments": {
+          "x-dead-letter-exchange": "MYVH.DeadletterExchange",
+          "x-dead-letter-routing-key": "MYVH.MainQueue.Dlq"
+        }
+      },
+      {
+        "name": "MYVH.MainQueue.Dlq",
+        "vhost": "MYVH",
+        "durable": true
+      }
+    ],
+    "exchanges": [
+      {
+        "name": "MYVH.MainExchange",
+        "vhost": "MYVH",
+        "type": "direct",
+        "durable": true,
+        "auto_delete": false
+      },
+      {
+        "name": "MYVH.DeadletterExchange",
+        "vhost": "MYVH",
+        "type": "direct",
+        "durable": true,
+        "auto_delete": false
+      }
+    ],
+    "bindings": [
+      {
+        "vhost": "MYVH",
+        "source": "MYVH.MainExchange",
+        "destination": "MYVH.MainQueue",
+        "destination_type": "queue",
+        "routing_key": "MYVH.MainQueue"
+      },
+      {
+        "vhost": "MYVH",
+        "source": "MYVH.DeadletterExchange",
+        "destination": "MYVH.MainQueue.Dlq",
+        "destination_type": "queue",
+        "routing_key": "MYVH.MainQueue.Dlq"
+      }
+    ]
+  }
+  
