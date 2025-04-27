@@ -10,25 +10,41 @@ title: RabitMQ
 config:
   theme: base
   themeVariables:
-    primaryColor: "#ff934c"
-    secondaryColor: '#FFE6E6'
-    background: "#ff934c"
+    primaryColor: #333
+    secondaryColor: white
+    background: "#000000"
 ---
 
 flowchart TD    
 subgraph MYVH ["Virtual Host: MYVH"]
+    P(Producer) --> A
+
     A(🔀 Exchange
           MYVH.MainExchange) -->|🔑MYVH.MainQueue| B(📩 Queue
                                                   MYVH.MainQueue)    
     B(📩 Queue
-                                                  MYVH.MainQueue) --> C(🔴 Message Rejection)
-    C --> |🔑MYVH.MainQueue.Dlq| D(🔀 Exchange
+                                                  MYVH.MainQueue) --> C(Consumer)
+    B --> |🔑MYVH.MainQueue.Dlq| D(🔀 Exchange
                                        MYVH.DeadletterExchange)
     D --> |🔑MYVH.MainQueue.Dlq| E(📩 Queue
                                                   MYVH.MainQueue.Dlq) 
 end
 
-style MYVH fill:#ffe6e6,stroke:#ff934c,stroke-width:2px;
+style MYVH fill:white,stroke:#333,stroke-width:2px;
+
+
+classDef exchange fill:#F7E494,stroke:#333,stroke-width:2px;
+class A exchange;
+class D exchange;
+
+classDef queue fill:#F4B233,stroke:#333,stroke-width:2px;
+class B queue;
+class E queue;
+
+style P fill:#ffcccc,stroke:#333,stroke-width:2px;
+style C fill:#97ECB8,stroke:#333,stroke-width:2px;
+
+linkStyle 0,1,2,3,4 stroke:#333, stroke-width:1px, color:252627;
 ```
 
 <br/>
