@@ -147,3 +147,10 @@ To customize plugins, open the `rabbitmq/enabled_plugins` file and adjust the li
 Make sure to restart the container after making changes to apply them.
 
 👉 For the full list of available plugins, visit the [official RabbitMQ plugin documentation](https://www.rabbitmq.com/docs/plugins).
+
+<br/>
+
+## 📘 Blog Post
+
+This repository is part of a my blog post:  
+[How to Set Up RabbitMQ with Docker Compose: Queues, DLQs, Plugins, and Security](https://www.davys.tech/en/posts/rabbitmq-setup-with-compose-queue-exchanges-dlq-plugins-using-docker-compose/)
